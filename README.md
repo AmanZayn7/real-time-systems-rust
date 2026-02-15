@@ -14,26 +14,25 @@ The simulation runs for 10 seconds and logs latency and jitter metrics for perfo
 ---
 
 # Architecture
-RTS_A (Sensor Producer)
-│
-├── Generates pseudo-random sensor values (30.0–100.0)
-├── Applies 5-sample moving average filter
-├── Flags anomalies (> 80.0 threshold)
-├── Measures latency & jitter
-├── Logs to CSV
-└── Streams JSON over TCP (127.0.0.1:8888)
+
+## RTS_A – Sensor Producer
+
+- Generates pseudo-random sensor values (30.0–100.0)
+- Applies 5-sample moving average filter
+- Flags anomalies (threshold > 80.0)
+- Measures latency and jitter
+- Logs output to CSV
+- Streams JSON over TCP (`127.0.0.1:8888`)
 
 ↓
 
-RTS_B (Actuator / PID Controller)
-│
-├── Connects to RTS_A TCP stream
-├── Parses JSON sensor data
-├── Executes PID control loop
-├── Logs control output
-└── Measures local processing latency
+## RTS_B – Actuator / PID Controller
 
-
+- Connects to RTS_A TCP stream
+- Parses incoming JSON sensor data
+- Executes PID control loop
+- Logs control output
+- Measures local processing latency
 ---
 
 # RTS_A – Sensor Module
